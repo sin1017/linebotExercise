@@ -38,7 +38,10 @@ function handleEvent(event) {
 
 	// create an echoing text message
 	const echo = { type: 'text', text: event.message.text };
-	const testMessage = { type: 'text', text: '已收到訊息，回傳測試訊息' };
+	const testMessage = {
+		type: 'text',
+		text: echo.text === 'test' ? '已收到訊息，回傳測試訊息' : '錯誤訊息',
+	};
 	// use reply API
 	return client.replyMessage({
 		replyToken: event.replyToken,
