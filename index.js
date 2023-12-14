@@ -38,11 +38,11 @@ function handleEvent(event) {
 
 	// create an echoing text message
 	const echo = { type: 'text', text: event.message.text };
-	console.log(event);
+	const testMessage = { type: 'text', text: '已收到訊息，回傳測試訊息' };
 	// use reply API
 	return client.replyMessage({
 		replyToken: event.replyToken,
-		messages: [echo],
+		messages: [testMessage],
 	});
 }
 
