@@ -41,7 +41,7 @@ async function searchDb() {
 }
 searchDb();
 // event handler
-const { testMessage } = require('./model/message');
+const testMessage = require('./model/message');
 console.log('test message ::::', testMessage);
 function handleEvent(event) {
 	if (event.type !== 'message' || event.message.type !== 'text') {
