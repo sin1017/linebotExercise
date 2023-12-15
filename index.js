@@ -62,6 +62,7 @@ function handleEvent(event) {
 			// break;
 		}
 	};
+	console.log('return message', returnMessage);
 	// use reply API
 	return client.replyMessage({
 		replyToken: event.replyToken,
