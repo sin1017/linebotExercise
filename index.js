@@ -66,7 +66,7 @@ function handleEvent(event) {
 	// use reply API
 	return client.replyMessage({
 		replyToken: event.replyToken,
-		messages: [returnMessage],
+		messages: [returnMessage()],
 	});
 }
 
