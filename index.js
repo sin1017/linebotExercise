@@ -48,7 +48,7 @@ function handleEvent(event) {
 		return Promise.resolve(null);
 	}
 
-	function returnMessage(message) {
+	const returnMessage = (function (message) {
 		if (message === '指令' || message === '使用方式' || message === '查詢') {
 			return order;
 		}
@@ -56,12 +56,12 @@ function handleEvent(event) {
 			type: 'text',
 			text: '查無指令',
 		};
-	}
+	})(event.text);
 	console.log('return message', returnMessage);
 	// use reply API
 	return client.replyMessage({
 		replyToken: event.replyToken,
-		messages: [returnMessage(event.text)],
+		messages: [returnMessage],
 	});
 }
 
