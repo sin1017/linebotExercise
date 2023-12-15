@@ -1,7 +1,7 @@
 require('dotenv').config();
 const line = require('@line/bot-sdk');
 const express = require('express');
-const db = require('./database/database');
+const addMember = require('./controller/add');
 // create LINE SDK config from env variables
 const config = {
 	channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN,
@@ -23,36 +23,27 @@ app.use(cors());
 app.post('/callback', line.middleware(config), (req, res) => {
 	Promise.all(req.body.events.map(handleEvent))
 		.then((result) => res.json(result))
-		.then(async (result) => {
-			await searchDb();
-		})
 		.catch((err) => {
 			res.status(500).end();
 		});
 });
 
-async function searchDb() {
-	try {
-		const [rows, fields] = await db.execute('SELECT * FROM user');
-	} catch (err) {
-		console.log('失敗了', err);
-	}
-}
-searchDb();
 // event handler
 const [
 	returnMessageHandle,
-	registerMember,
-	deleteMember,
-	addVacation,
-	deleteVacation,
+	registerMemberMessage,
+	deleteMemberMessage,
+	addVacationMessage,
+	deleteVacationMessage,
 ] = require('./model/message');
 function handleEvent(event) {
 	if (event.type !== 'message' || event.message.type !== 'text') {
 		// ignore non-text-message event
 		return Promise.resolve(null);
 	}
-
+	if (event.message.text === '註冊') {
+		addMember(event);
+	}
 	const returnMessage = (() => {
 		if (event.message.text === '註冊') {
 			return registerResultMessage(true);
