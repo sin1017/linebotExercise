@@ -23,21 +23,21 @@ function returnMessageHandle(message) {
 		return order;
 	}
 }
-function registerMember(condition) {
+function registerMemberMessage(condition) {
 	if (!condition) {
 		defaultMessage.text = '註冊失敗 😭😭😭';
 	}
 	defaultMessage.text = '註冊成功 🎉🎉🎉';
 	return defaultMessage;
 }
-function deleteMember(condition) {
+function deleteMemberMessage(condition) {
 	if (!condition) {
 		defaultMessage.text = '刪除失敗 😭😭😭';
 	}
 	defaultMessage.text = '刪除成功 🎉🎉🎉';
 	return defaultMessage;
 }
-function addVacation(condition) {
+function addVacationMessage(condition) {
 	if (!condition) {
 		defaultMessage.text = '新增失敗 😭😭😭';
 	}
@@ -45,7 +45,7 @@ function addVacation(condition) {
 	return defaultMessage;
 }
 
-function deleteVacation(condition) {
+function deleteVacationMessage(condition) {
 	if (!condition) {
 		defaultMessage.text = '刪除失敗 😭😭😭';
 	}
@@ -55,8 +55,8 @@ function deleteVacation(condition) {
 
 module.exports = [
 	returnMessageHandle,
-	registerMember,
-	deleteMember,
-	addVacation,
-	deleteVacation,
+	registerMemberMessage,
+	deleteMemberMessage,
+	addVacationMessage,
+	deleteVacationMessage,
 ];
