@@ -40,7 +40,13 @@ async function searchDb() {
 }
 searchDb();
 // event handler
-const [returnMessageHandle, registerResultMessage] = require('./model/message');
+const [
+	returnMessageHandle,
+	registerMember,
+	deleteMember,
+	addVacation,
+	deleteVacation,
+] = require('./model/message');
 function handleEvent(event) {
 	if (event.type !== 'message' || event.message.type !== 'text') {
 		// ignore non-text-message event
