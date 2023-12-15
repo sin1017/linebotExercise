@@ -41,26 +41,31 @@ async function searchDb() {
 }
 searchDb();
 // event handler
-const [testMessage] = require('./model/message');
-console.log('test message ::::', testMessage);
+const [order] = require('./model/message');
 function handleEvent(event) {
 	if (event.type !== 'message' || event.message.type !== 'text') {
-		console.log('error message type not text', event);
 		// ignore non-text-message event
 		return Promise.resolve(null);
 	}
 
-	// create an echoing text message
-	const echo = { type: 'text', text: event.message.text };
-
-	// const testMessage = {
-	// 	type: 'text',
-	// 	text: echo.text === 'test' ? '已收到訊息，回傳測試訊息' : '錯誤訊息',
-	// };
+	const returnMessage = () => {
+		switch (event.text) {
+			case '指令':
+				return order;
+			case '使用方式':
+				return order;
+			default:
+				return {
+					type: 'text',
+					text: '查無指令',
+				};
+			// break;
+		}
+	};
 	// use reply API
 	return client.replyMessage({
 		replyToken: event.replyToken,
-		messages: [testMessage],
+		messages: [returnMessage],
 	});
 }
 
