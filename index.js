@@ -50,8 +50,10 @@ function handleEvent(event) {
 
 	const returnMessage = (function (message) {
 		if (message === '指令' || message === '使用方式' || message === '查詢') {
+			console.log('判斷成功', order);
 			return order;
 		}
+		console.log('message', message);
 		return {
 			type: 'text',
 			text: '查無指令',
