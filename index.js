@@ -48,25 +48,20 @@ function handleEvent(event) {
 		return Promise.resolve(null);
 	}
 
-	const returnMessage = () => {
-		switch (event.text) {
-			case '指令':
-				return order;
-			case '使用方式':
-				return order;
-			default:
-				return {
-					type: 'text',
-					text: '查無指令',
-				};
-			// break;
+	function returnMessage(message) {
+		if (message === '指令' || message === '使用方式' || message === '查詢') {
+			return order;
 		}
-	};
+		return {
+			type: 'text',
+			text: '查無指令',
+		};
+	}
 	console.log('return message', returnMessage);
 	// use reply API
 	return client.replyMessage({
 		replyToken: event.replyToken,
-		messages: [returnMessage()],
+		messages: [returnMessage(event.text)],
 	});
 }
 
