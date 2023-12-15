@@ -24,11 +24,9 @@ app.post('/callback', line.middleware(config), (req, res) => {
 	Promise.all(req.body.events.map(handleEvent))
 		.then((result) => res.json(result))
 		.then(async (result) => {
-			console.log('執行', result);
 			await searchDb();
 		})
 		.catch((err) => {
-			console.error(err);
 			res.status(500).end();
 		});
 });
@@ -45,17 +43,18 @@ searchDb();
 // event handler
 function handleEvent(event) {
 	if (event.type !== 'message' || event.message.type !== 'text') {
-		console.log('error', event);
+		console.log('error message type not text', event);
 		// ignore non-text-message event
 		return Promise.resolve(null);
 	}
 
 	// create an echoing text message
 	const echo = { type: 'text', text: event.message.text };
-	const testMessage = {
-		type: 'text',
-		text: echo.text === 'test' ? '已收到訊息，回傳測試訊息' : '錯誤訊息',
-	};
+	const { testMessage } = require('./model/message');
+	// const testMessage = {
+	// 	type: 'text',
+	// 	text: echo.text === 'test' ? '已收到訊息，回傳測試訊息' : '錯誤訊息',
+	// };
 	// use reply API
 	return client.replyMessage({
 		replyToken: event.replyToken,
