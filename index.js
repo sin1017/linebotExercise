@@ -41,6 +41,8 @@ async function searchDb() {
 }
 searchDb();
 // event handler
+const { testMessage } = require('./model/message');
+console.log('test message ::::', testMessage);
 function handleEvent(event) {
 	if (event.type !== 'message' || event.message.type !== 'text') {
 		console.log('error message type not text', event);
@@ -50,7 +52,7 @@ function handleEvent(event) {
 
 	// create an echoing text message
 	const echo = { type: 'text', text: event.message.text };
-	const { testMessage } = require('./model/message');
+
 	// const testMessage = {
 	// 	type: 'text',
 	// 	text: echo.text === 'test' ? '已收到訊息，回傳測試訊息' : '錯誤訊息',
