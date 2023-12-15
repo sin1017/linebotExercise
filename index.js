@@ -58,7 +58,7 @@ function handleEvent(event) {
 			type: 'text',
 			text: '查無指令',
 		};
-	})(event.text);
+	})(event.message);
 	console.log('return message', returnMessage);
 	// use reply API
 	return client.replyMessage({
