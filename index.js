@@ -41,25 +41,14 @@ async function searchDb() {
 }
 searchDb();
 // event handler
-const [order] = require('./model/message');
+const returnMessageHandle = require('./model/message');
 function handleEvent(event) {
 	if (event.type !== 'message' || event.message.type !== 'text') {
 		// ignore non-text-message event
 		return Promise.resolve(null);
 	}
 
-	const returnMessage = (function (message) {
-		if (message === '指令' || message === '使用方式' || message === '查詢') {
-			console.log('判斷成功', order);
-			return order;
-		}
-		console.log('message', message);
-		return {
-			type: 'text',
-			text: '查無指令',
-		};
-	})(event.message.text);
-	console.log('return message', returnMessage);
+	const returnMessage = returnMessageHandle(event.message.text);
 	// use reply API
 	return client.replyMessage({
 		replyToken: event.replyToken,

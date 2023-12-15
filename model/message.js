@@ -1,4 +1,4 @@
-const oder = {
+const order = {
 	type: 'text',
 	text: `| 查詢 |
       查詢+月份：查詢該月份休假名單及天數
@@ -9,8 +9,13 @@ const oder = {
       休假2023/12/15：新增休假
 | 刪除 |
       刪除會員：刪除發送訊息的員工資料
-			刪除2023/12/15：刪除休假
+      刪除2023/12/15：刪除休假
 `,
 };
 
-module.exports = [oder];
+function returnMessageHandle(message) {
+	if (message === '指令' || message === '使用方式' || message === '查詢') {
+		return order;
+	}
+}
+module.exports = returnMessageHandle;
