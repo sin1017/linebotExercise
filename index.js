@@ -34,21 +34,25 @@ app.post('/callback', line.middleware(config), (req, res) => {
 async function searchDb() {
 	try {
 		const [rows, fields] = await db.execute('SELECT * FROM user');
-		console.log(rows);
 	} catch (err) {
 		console.log('失敗了', err);
 	}
 }
 searchDb();
 // event handler
-const returnMessageHandle = require('./model/message');
+const [returnMessageHandle, registerResultMessage] = require('./model/message');
 function handleEvent(event) {
 	if (event.type !== 'message' || event.message.type !== 'text') {
 		// ignore non-text-message event
 		return Promise.resolve(null);
 	}
 
-	const returnMessage = returnMessageHandle(event.message.text);
+	const returnMessage = (() => {
+		if (event.message.text === '註冊') {
+			return registerResultMessage(true);
+		}
+		return returnMessageHandle(event.message.text);
+	})();
 	// use reply API
 	return client.replyMessage({
 		replyToken: event.replyToken,

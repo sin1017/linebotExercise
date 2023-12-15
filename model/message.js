@@ -12,10 +12,20 @@ const order = {
       刪除2023/12/15：刪除休假
 `,
 };
-
 function returnMessageHandle(message) {
 	if (message === '指令' || message === '使用方式' || message === '查詢') {
 		return order;
 	}
 }
-module.exports = returnMessageHandle;
+function registerResultMessage(condition) {
+	const defaultMessage = {
+		type: 'text',
+		text: '註冊成功 🎉🎉🎉',
+	};
+	if (!condition) {
+		defaultMessage.text = '註冊失敗😭😭😭';
+	}
+	return defaultMessage;
+}
+
+module.exports = [returnMessageHandle, registerResultMessage];
