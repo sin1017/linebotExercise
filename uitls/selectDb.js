@@ -7,7 +7,7 @@ const db = require('../database/database');
  */
 async function selectDb(searchTarget, searchValue) {
 	const selectDbId =
-		!searchTarget && !searchValue
+		searchTarget && searchValue
 			? `SELECT * FROM zeabur.user WHERE ${searchTarget}='${searchValue}'`
 			: `SELECT * FROM zeabur.user`;
 	console.log('selectDbId |||||', selectDbId);
