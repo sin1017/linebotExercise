@@ -8,9 +8,9 @@ async function addMember(userinfo) {
 		const deleteOrder =
 			"DELETE FROM `zeabur`.`user` WHERE (`id` = '1') and (`uid` = '123');";
 		const [rows, fields] = await db.execute(dbOrder);
-		return rows;
+		// return rows;
 	} catch (err) {
-		return false;
+		// return false;
 	}
 }
 
