@@ -11,6 +11,7 @@ async function addMember(userinfo) {
 		// return rows;
 	} catch (err) {
 		// return false;
+		console.log(err);
 	}
 }
 
