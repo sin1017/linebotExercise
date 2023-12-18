@@ -1,8 +1,15 @@
 const db = require('../database/database');
+const selectDb = require('../uitls/selectDb');
 const channelAccessToken = process.env.CHANNEL_ACCESS_TOKEN;
+
 async function addMember(userinfo) {
 	try {
 		let userName = '';
+		const registerCheck = await selectDb('uid', userinfo.source.userId);
+		console.log('register check result::::""""', registerCheck);
+		if (registerCheck.length > 0) {
+			throw false;
+		}
 		await fetch(
 			`https://api.line.me/v2/bot/profile/${userinfo.source.userId}`,
 			{
@@ -16,11 +23,13 @@ async function addMember(userinfo) {
 			.then((res) => {
 				userName = res.displayName;
 			});
-
-		const dbOrder = `INSERT INTO zeabur.user (uid, name) VALUES ('${userinfo.source.userId}', '${userName}')`;
-
-		await db.query(dbOrder);
-
+		const selectResult = await selectDb();
+		const statusList = selectResult.find((item) => item.status === 1);
+		const addOrder = `INSERT INTO zeabur.user (uid, name) VALUES ('${userinfo.source.userId}', '${userName}')`;
+		const updateOrder = `UPDATE zeabur.user SET uid = '${userinfo.source.userId}', name = '${userName}', status = '0' WHERE (id = ${statusList.id})`;
+		selectResult.length < 10
+			? await db.query(addOrder)
+			: await db.query(updateOrder);
 		return true;
 	} catch (err) {
 		console.log(err);
