@@ -27,9 +27,11 @@ async function addMember(userinfo) {
 		const statusList = selectResult.find((item) => item.status === 1);
 		const addOrder = `INSERT INTO zeabur.user (uid, name) VALUES ('${userinfo.source.userId}', '${userName}')`;
 		const updateOrder = `UPDATE zeabur.user SET uid = '${userinfo.source.userId}', name = '${userName}', status = '0' WHERE (id = ${statusList.id})`;
-		selectResult.length < 10
-			? await db.query(addOrder)
-			: await db.query(updateOrder);
+		// selectResult.length < 10
+		// 	? await db.query(addOrder)
+		// 	: await db.query(updateOrder);
+		await db.query(addOrder);
+
 		return true;
 	} catch (err) {
 		console.log(err);
