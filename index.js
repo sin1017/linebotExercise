@@ -51,7 +51,6 @@ async function handleEvent(event) {
 	// 		: returnMessageHandle(event.message.text);
 
 	// use reply API
-	console.log('result', returnMessage);
 
 	return client.replyMessage({
 		replyToken: event.replyToken,
