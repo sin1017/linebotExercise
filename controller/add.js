@@ -1,7 +1,7 @@
 const db = require('../database/database');
 async function addMember(userinfo) {
-	console.log('userinfo:::::', userinfo);
 	try {
+		let userName = '';
 		await fetch(
 			`https://api.line.me/v2/bot/profile/${userinfo.source.userId}`,
 			{
@@ -13,10 +13,10 @@ async function addMember(userinfo) {
 		)
 			.then((res) => res.json(res))
 			.then((res) => {
-				console.log('response', res);
+				userName = res.displayName;
 			});
 
-		// const dbOrder = `INSERT INTO zeabur.user (uid, name) VALUES ('${userinfo.source.userId}', '歆偊')`;
+		const dbOrder = `INSERT INTO zeabur.user (uid, name) VALUES ('${userinfo.source.userId}', '${userName}')`;
 		// const deleteOrder =
 		// 	"DELETE FROM `zeabur`.`user` WHERE (`id` = '1') and (`uid` = '123');";
 		// const [rows, fields] = await db.query(dbOrder);
