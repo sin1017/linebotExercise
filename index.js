@@ -43,9 +43,8 @@ async function handleEvent(event) {
 		return Promise.resolve(null);
 	}
 	if (event.message.text === '註冊') {
-		console.log('1');
+		console.log('執行');
 		returnMessage = await addMember(event);
-		console.log('2', returnMessage);
 	}
 	// returnMessage =
 	// 	event.message.text === '註冊'
@@ -53,6 +52,8 @@ async function handleEvent(event) {
 	// 		: returnMessageHandle(event.message.text);
 
 	// use reply API
+	console.log('2', returnMessage);
+
 	return client.replyMessage({
 		replyToken: event.replyToken,
 		messages: [returnMessage],
