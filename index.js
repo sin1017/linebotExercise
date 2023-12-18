@@ -23,9 +23,6 @@ app.use(cors());
 app.post('/callback', line.middleware(config), (req, res) => {
 	Promise.all(req.body.events.map(handleEvent))
 		.then((result) => res.json(result))
-		.then((res) => {
-			console.log('res ---', res);
-		})
 		.catch((err) => {
 			res.status(500).end();
 		});
@@ -46,7 +43,6 @@ async function handleEvent(event) {
 		return Promise.resolve(null);
 	}
 	if (event.message.text === '註冊') {
-		console.log('執行');
 		returnMessage = registerMemberMessage(await addMember(event));
 	}
 	// returnMessage =
