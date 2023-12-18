@@ -36,20 +36,20 @@ const [
 	addVacationMessage,
 	deleteVacationMessage,
 ] = require('./model/message');
-function handleEvent(event) {
+async function handleEvent(event) {
+	let returnMessage = '';
 	if (event.type !== 'message' || event.message.type !== 'text') {
 		// ignore non-text-message event
 		return Promise.resolve(null);
 	}
 	if (event.message.text === '註冊') {
-		addMember(event);
+		await addMember(event);
 	}
-	const returnMessage = (() => {
-		if (event.message.text === '註冊') {
-			return registerResultMessage(true);
-		}
-		return returnMessageHandle(event.message.text);
-	})();
+	returnMessage =
+		event.message.text === '註冊'
+			? registerResultMessage(true)
+			: returnMessageHandle(event.message.text);
+
 	// use reply API
 	return client.replyMessage({
 		replyToken: event.replyToken,
