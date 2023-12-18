@@ -19,8 +19,8 @@ async function addMember(userinfo) {
 		const dbOrder = `INSERT INTO zeabur.user (uid, name) VALUES ('${userinfo.source.userId}', '${userName}')`;
 		// const deleteOrder =
 		// 	"DELETE FROM `zeabur`.`user` WHERE (`id` = '1') and (`uid` = '123');";
-		// const [rows, fields] = await db.query(dbOrder);
-
+		const [rows, fields] = await db.query(dbOrder);
+		console.log('rows -----', rows);
 		return true;
 	} catch (err) {
 		console.log(err);
