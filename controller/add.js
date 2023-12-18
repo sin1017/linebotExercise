@@ -1,7 +1,7 @@
 const db = require('../database/database');
 
 async function addMember(userinfo) {
-	// console.log('userinfo:::::', userinfo);
+	console.log('userinfo:::::', userinfo);
 	try {
 		await fetch(`https://api.line.me/v2/bot/profile/${userinfo.source.userId}`)
 			.then((res) => res.json(res))
