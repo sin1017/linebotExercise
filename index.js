@@ -46,7 +46,7 @@ async function handleEvent(event) {
 		returnMessage = registerMemberMessage(await addMember(event));
 	}
 	if (event.message.text === '刪除') {
-		registerMemberMessage = deleteMemberMessage(await deleteMember(event));
+		returnMessage = deleteMemberMessage(await deleteMember(event));
 	}
 	// use reply API
 	return client.replyMessage({

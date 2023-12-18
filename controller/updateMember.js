@@ -30,12 +30,14 @@ async function addMember(userinfo) {
 
 async function deleteMember(userinfo) {
 	try {
-		const dbId = `SELECT * FROM zeabur.user WHERE uid='${userinfo.source.userId}'`;
+		// let dbId = '';
+		const selectDbId = `SELECT * FROM zeabur.user WHERE uid='${userinfo.source.userId}'`;
 
-		// const deleteOrder = `UPDATE zeabur.user SET`;
+		// const deleteOrder = `UPDATE zeabur.user SET status = '1' WHERE (id = ${dbId})`;
 		// "DELETE FROM `zeabur`.`user` WHERE (`id` = '1') and (`uid` = '123');";
-		const [result, fil] = await db.query(dbId);
-		console.log('result ----', result);
+		const dbId = await db.query(selectDbId).id;
+		// dbId = result.id
+		console.log('result ----', dbId);
 		return true;
 	} catch (error) {
 		console.log(error);
