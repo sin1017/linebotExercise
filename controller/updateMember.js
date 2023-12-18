@@ -41,4 +41,4 @@ async function deleteMember(userinfo) {
 	}
 }
 
-module.exports = addMember;
+module.exports = [addMember, deleteMember];

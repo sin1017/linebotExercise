@@ -1,7 +1,7 @@
 require('dotenv').config();
 const line = require('@line/bot-sdk');
 const express = require('express');
-const addMember = require('./controller/add');
+const [addMember, deleteMember] = require('./controller/updateMember');
 // create LINE SDK config from env variables
 const config = {
 	channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN,
@@ -45,13 +45,10 @@ async function handleEvent(event) {
 	if (event.message.text === '註冊') {
 		returnMessage = registerMemberMessage(await addMember(event));
 	}
-	// returnMessage =
-	// 	event.message.text === '註冊'
-	// 		? returnMessageHandle(true)
-	// 		: returnMessageHandle(event.message.text);
-
+	if (event.message.text === '刪除') {
+		registerMemberMessage = deleteMemberMessage(await deleteMember(event));
+	}
 	// use reply API
-
 	return client.replyMessage({
 		replyToken: event.replyToken,
 		messages: [returnMessage],
