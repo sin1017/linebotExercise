@@ -4,7 +4,7 @@ async function addMember(userinfo) {
 	// console.log('userinfo:::::', userinfo);
 	try {
 		await fetch(`https://api.line.me/v2/bot/profile/${userinfo.source.userId}`)
-			.then((result) => res.json(result))
+			.then((res) => res.json(res))
 			.then((res) => {
 				console.log('response', res);
 			});
