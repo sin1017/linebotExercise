@@ -47,7 +47,7 @@ async function handleEvent(event) {
 	}
 	if (event.message.text === '註冊') {
 		console.log('執行');
-		returnMessage = await addMember(event);
+		returnMessage = registerResultMessage(await addMember(event));
 	}
 	// returnMessage =
 	// 	event.message.text === '註冊'
