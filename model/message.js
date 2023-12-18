@@ -26,6 +26,7 @@ function returnMessageHandle(message) {
 function registerMemberMessage(condition) {
 	if (!condition) {
 		defaultMessage.text = '註冊失敗 😭😭😭';
+		return defaultMessage;
 	}
 	defaultMessage.text = '註冊成功 🎉🎉🎉';
 	return defaultMessage;
