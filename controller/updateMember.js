@@ -6,8 +6,9 @@ async function addMember(userinfo) {
 	try {
 		let userName = '';
 		const registerCheck = await selectDb('uid', userinfo.source.userId);
-		console.log('register check result::::""""', registerCheck);
-		if (registerCheck.length > 0) {
+		const registerCheckList = registerCheck.find((item) => item.status === 0);
+
+		if (registerCheck.length > 0 && registerCheckList !== undefined) {
 			throw false;
 		}
 		await fetch(
