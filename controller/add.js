@@ -1,9 +1,16 @@
 const db = require('../database/database');
-
 async function addMember(userinfo) {
 	console.log('userinfo:::::', userinfo);
 	try {
-		await fetch(`https://api.line.me/v2/bot/profile/${userinfo.source.userId}`)
+		await fetch(
+			`https://api.line.me/v2/bot/profile/${userinfo.source.userId}`,
+			{
+				method: 'GET',
+				headers: {
+					Authorization: 'Bearer ' + process.env.CHANNEL_ACCESS_TOKEN,
+				},
+			},
+		)
 			.then((res) => res.json(res))
 			.then((res) => {
 				console.log('response', res);
