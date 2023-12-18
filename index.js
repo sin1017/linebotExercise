@@ -43,9 +43,9 @@ async function handleEvent(event) {
 		return Promise.resolve(null);
 	}
 	if (event.message.text === '註冊') {
-		// console.log('1');
-		await addMember(event);
-		// console.log('2', returnMessage);
+		console.log('1');
+		returnMessage = await addMember(event);
+		console.log('2', returnMessage);
 	}
 	// returnMessage =
 	// 	event.message.text === '註冊'
