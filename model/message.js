@@ -32,8 +32,10 @@ function registerMemberMessage(condition) {
 	return defaultMessage;
 }
 function deleteMemberMessage(condition) {
+	console.log('執行');
 	if (!condition) {
 		defaultMessage.text = '刪除失敗 😭😭😭';
+		return defaultMessage;
 	}
 	defaultMessage.text = '刪除成功 🎉🎉🎉';
 	return defaultMessage;
