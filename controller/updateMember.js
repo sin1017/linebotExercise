@@ -34,9 +34,11 @@ async function deleteMember(userinfo) {
 		const selectDbId = `SELECT * FROM zeabur.user WHERE uid='${userinfo.source.userId}'`;
 
 		const [result, filed] = await db.query(selectDbId);
-		const dbId = result[0].id;
-
-		const updateOrder = `UPDATE zeabur.user SET status = '1' WHERE (id = ${dbId})`;
+		const dbId = result[0];
+		console.log('dbId status', typeof dbId.status);
+		if (dbId.status === 1) throw false;
+		console.log('繼續往下？');
+		const updateOrder = `UPDATE zeabur.user SET status = '1' WHERE (id = ${dbId.id})`;
 
 		await db.query(updateOrder);
 
