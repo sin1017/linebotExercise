@@ -43,12 +43,14 @@ async function handleEvent(event) {
 		return Promise.resolve(null);
 	}
 	if (event.message.text === '註冊') {
-		await addMember(event);
+		console.log('1');
+		returnMessage = await addMember(event);
+		console.log('2');
 	}
-	returnMessage =
-		event.message.text === '註冊'
-			? registerResultMessage(true)
-			: returnMessageHandle(event.message.text);
+	// returnMessage =
+	// 	event.message.text === '註冊'
+	// 		? registerResultMessage(true)
+	// 		: returnMessageHandle(event.message.text);
 
 	// use reply API
 	return client.replyMessage({
