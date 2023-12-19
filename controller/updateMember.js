@@ -41,7 +41,7 @@ async function addMember(userinfo) {
 
 		return true;
 	} catch (err) {
-		console.log(err);
+		console.log('addMember filed', err);
 		return false;
 	}
 }
@@ -54,8 +54,8 @@ async function deleteMember(userinfo) {
 		const [result, filed] = await db.execute(selectDbId, [
 			userinfo.source.userId,
 		]);
-		const dbId = result.some((item) => item.status === 1);
-
+		const dbId = result.every((item) => item.status === 1);
+		console.log('dbId some 結果', dbId);
 		if (dbId) throw false;
 
 		const updateOrder = `UPDATE zeabur.user SET status = '1' WHERE (id = ?)`;
@@ -64,7 +64,7 @@ async function deleteMember(userinfo) {
 
 		return true;
 	} catch (error) {
-		console.log(error);
+		console.log('deleteMember filed', error);
 		return false;
 	}
 }
