@@ -60,7 +60,7 @@ function searchMemberMessage(message = []) {
 		result += `${index + 1}. ${item.name} 
 		`;
 		return result;
-	}, '');
+	}, '  ');
 	console.log('result message:::拼湊完的字串', defaultMessage);
 	return defaultMessage;
 }
