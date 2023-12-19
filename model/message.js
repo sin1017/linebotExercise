@@ -18,10 +18,8 @@ const defaultMessage = {
 	type: 'text',
 	text: null,
 };
-function returnMessageHandle(message) {
-	if (message === '指令' || message === '使用方式' || message === '查詢') {
-		return order;
-	}
+function returnMessageHandle() {
+	return order;
 }
 function registerMemberMessage(condition) {
 	if (!condition) {
@@ -42,6 +40,7 @@ function deleteMemberMessage(condition) {
 function addVacationMessage(condition) {
 	if (!condition) {
 		defaultMessage.text = '新增失敗 😭😭😭';
+		return defaultMessage;
 	}
 	defaultMessage.text = '新增成功 🎉🎉🎉';
 	return defaultMessage;
@@ -50,8 +49,17 @@ function addVacationMessage(condition) {
 function deleteVacationMessage(condition) {
 	if (!condition) {
 		defaultMessage.text = '刪除失敗 😭😭😭';
+		return defaultMessage;
 	}
 	defaultMessage.text = '刪除成功 🎉🎉🎉';
+	return defaultMessage;
+}
+
+function searchMemberMessage(message = []) {
+	defaultMessage.text = message.reduce((result, item) => {
+		result += `${item}
+		`;
+	}, '');
 	return defaultMessage;
 }
 
@@ -61,4 +69,5 @@ module.exports = [
 	deleteMemberMessage,
 	addVacationMessage,
 	deleteVacationMessage,
+	searchMemberMessage,
 ];

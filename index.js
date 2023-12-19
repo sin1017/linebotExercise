@@ -2,6 +2,7 @@ require('dotenv').config();
 const line = require('@line/bot-sdk');
 const express = require('express');
 const [addMember, deleteMember] = require('./controller/updateMember');
+const [searchMember] = require('./controller/search');
 // create LINE SDK config from env variables
 const config = {
 	channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN,
@@ -35,6 +36,7 @@ const [
 	deleteMemberMessage,
 	addVacationMessage,
 	deleteVacationMessage,
+	searchMemberMessage,
 ] = require('./model/message');
 async function handleEvent(event) {
 	let returnMessage = '';
@@ -42,11 +44,26 @@ async function handleEvent(event) {
 		// ignore non-text-message event
 		return Promise.resolve(null);
 	}
-	if (event.message.text === '註冊') {
-		returnMessage = registerMemberMessage(await addMember(event));
-	}
-	if (event.message.text === '刪除') {
-		returnMessage = deleteMemberMessage(await deleteMember(event));
+	switch (event.message.text) {
+		case '註冊帳號':
+			returnMessage = registerMemberMessage(await addMember(event));
+			break;
+		case '停用帳號':
+			returnMessage = deleteMemberMessage(await deleteMember(event));
+			break;
+		case '查詢':
+			returnMessage = returnMessageHandle();
+			break;
+		case '查詢名單':
+			returnMessage = searchMemberMessage(await searchMember());
+			break;
+
+		default:
+			const searchMethPattern = /查詢(\d+)月/;
+			const targetMonth = event.message.text.match(searchMethPattern);
+			console.log('targetMonth check', targetMonth);
+			// registerMessage =
+			break;
 	}
 	// use reply API
 	return client.replyMessage({
