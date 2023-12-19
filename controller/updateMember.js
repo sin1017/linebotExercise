@@ -54,13 +54,20 @@ async function deleteMember(userinfo) {
 		const [result, filed] = await db.execute(selectDbId, [
 			userinfo.source.userId,
 		]);
-		const dbId = result.every((item) => item.status === 1);
+		let dbId = '';
+		const dbStatusCheck = result.every((item) => {
+			if (item.status === 1) {
+				return true;
+			}
+			dbId = item.id;
+			return false;
+		});
 		console.log('dbId some 結果', dbId);
-		if (dbId) throw false;
+		if (dbStatusCheck) throw false;
 
 		const updateOrder = `UPDATE zeabur.user SET status = '1' WHERE (id = ?)`;
 
-		await db.execute(updateOrder, [dbId.id]);
+		await db.execute(updateOrder, [dbId]);
 
 		return true;
 	} catch (error) {
