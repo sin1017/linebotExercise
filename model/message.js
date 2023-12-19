@@ -56,6 +56,7 @@ function deleteVacationMessage(condition) {
 }
 
 function searchMemberMessage(message = []) {
+	console.log('searchMemberMessage message ', message);
 	defaultMessage.text = message.reduce((result, item) => {
 		result += `${item}
 		`;
