@@ -27,13 +27,17 @@ async function addMember(userinfo) {
 		const selectResult = await selectDb();
 		const statusList = selectResult.find((item) => item.status === 1);
 
-		const addOrder = `INSERT INTO zeabur.user (uid, name) VALUES ('${userinfo.source.userId}', '${userName}')`;
+		const addOrder = `INSERT INTO zeabur.user (uid, name) VALUES (?, ?)`;
 
-		const updateOrder = `UPDATE zeabur.user SET uid = '${userinfo.source.userId}', name = '${userName}', status = '0' WHERE (id = ${statusList?.id})`;
+		const updateOrder = `UPDATE zeabur.user SET uid = ?, name = ?, status = '0' WHERE (id = ?)`;
 
 		selectResult.length < 10
-			? await db.query(addOrder)
-			: await db.query(updateOrder);
+			? await db.execute(addOrder, [userinfo.source.userId, userName])
+			: await db.execute(updateOrder, [
+					userinfo.source.userId,
+					userName,
+					statusList?.id,
+			  ]);
 
 		return true;
 	} catch (err) {
@@ -45,15 +49,17 @@ async function addMember(userinfo) {
 async function deleteMember(userinfo) {
 	try {
 		// get db id
-		const selectDbId = `SELECT * FROM zeabur.user WHERE uid='${userinfo.source.userId}'`;
+		const selectDbId = `SELECT * FROM zeabur.user WHERE uid= ?`;
 
-		const [result, filed] = await db.query(selectDbId);
+		const [result, filed] = await db.execute(selectDbId, [
+			userinfo.source.userId,
+		]);
 		const dbId = result[0];
 		if (dbId.status === 1) throw false;
 
-		const updateOrder = `UPDATE zeabur.user SET status = '1' WHERE (id = ${dbId.id})`;
+		const updateOrder = `UPDATE zeabur.user SET status = '1' WHERE (id = ?)`;
 
-		await db.query(updateOrder);
+		await db.execute(updateOrder, [dbId.id]);
 
 		return true;
 	} catch (error) {

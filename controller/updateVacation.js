@@ -24,8 +24,8 @@ async function addVacation(userId, date) {
 		if (checkSignUpStatus.length === 0) {
 			return 2;
 		}
-		const addVacationOrder = `INSERT INTO zeabur.vacation_list (uid, date) VALUES ('${userId}', '${date}')`;
-		await db.execute(addVacationOrder);
+		const addVacationOrder = `INSERT INTO zeabur.vacation_list (uid, date) VALUES (?,?)`;
+		await db.execute(addVacationOrder, [userId, date]);
 		return 0;
 	} catch (error) {
 		console.log('新增休假失敗');
