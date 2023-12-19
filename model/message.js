@@ -57,7 +57,8 @@ function deleteVacationMessage(condition) {
 
 function searchMemberMessage(message = []) {
 	defaultMessage.text = message.reduce((result, item, index) => {
-		result += `${index + 1}. ${item.name}`;
+		result += `${index + 1}. ${item.name} 
+		`;
 		return result;
 	}, '');
 	console.log('result message:::拼湊完的字串', defaultMessage);
