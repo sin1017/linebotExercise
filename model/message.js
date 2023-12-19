@@ -56,8 +56,8 @@ function deleteVacationMessage(condition) {
 }
 
 function searchMemberMessage(message = []) {
-	defaultMessage.text = message.reduce((result, item) => {
-		result += `${item.name}
+	defaultMessage.text = message.reduce((result, item, index) => {
+		result += `${index + 1}.${item.name}
 		`;
 		return result;
 	}, '');
