@@ -11,7 +11,7 @@ async function selectDb(searchTarget, searchValue, tableName = 'zeabur.user') {
 		? `SELECT * FROM ${tableName} WHERE ${searchTarget}='${searchValue}'`
 		: `SELECT * FROM ${tableName}`;
 
-	const [result, filed] = await db.query(selectDbId);
+	const [result, filed] = await db.execute(selectDbId);
 	return result;
 }
 
