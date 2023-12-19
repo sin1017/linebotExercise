@@ -5,4 +5,4 @@ async function searchMember() {
 	return result;
 }
 
-module.exports = searchMember;
+module.exports = [searchMember];
