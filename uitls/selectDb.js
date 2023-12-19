@@ -8,11 +8,9 @@ const db = require('../database/database');
  */
 async function selectDb(searchTarget, searchValue, tableName = 'zeabur.user') {
 	const selectDbId = searchTarget
-		? `SELECT * FROM ? WHERE ? = ?`
-		: `SELECT * FROM ?`;
-	const executeValue = searchTarget
-		? [tableName, searchTarget, searchValue]
-		: [tableName];
+		? `SELECT * FROM ${tableName} WHERE ${searchTarget} = ?`
+		: `SELECT * FROM ${tableName}`;
+	const executeValue = searchTarget ? [searchValue] : [];
 	const [result, filed] = await db.execute(selectDbId, executeValue);
 	return result;
 }

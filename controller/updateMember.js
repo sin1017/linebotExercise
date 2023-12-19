@@ -49,7 +49,7 @@ async function addMember(userinfo) {
 async function deleteMember(userinfo) {
 	try {
 		// get db id
-		const selectDbId = `SELECT * FROM zeabur.user WHERE uid= ?`;
+		const selectDbId = `SELECT * FROM zeabur.user WHERE uid = ?`;
 
 		const [result, filed] = await db.execute(selectDbId, [
 			userinfo.source.userId,
