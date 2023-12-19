@@ -10,7 +10,7 @@ async function selectDb(searchTarget, searchValue, tableName = 'zeabur.user') {
 	const selectDbId = searchTarget
 		? `SELECT * FROM ${tableName} WHERE ${searchTarget}='${searchValue}'`
 		: `SELECT * FROM ${tableName}`;
-	console.log('search db 語法', selectDbId, '""', searchTarget, searchValue);
+
 	const [result, filed] = await db.query(selectDbId);
 	return result;
 }
