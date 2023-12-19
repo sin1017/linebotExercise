@@ -56,6 +56,7 @@ async function handleEvent(event) {
 			break;
 		case '查詢名單':
 			returnMessage = searchMemberMessage(await searchMember());
+			console.log(returnMessage);
 			break;
 
 		default:
