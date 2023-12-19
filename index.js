@@ -62,8 +62,7 @@ async function handleEvent(event) {
 		default:
 			const searchMethPattern = /查詢(\d+)月/;
 			const targetMonth = event.message.text.match(searchMethPattern);
-			console.log('targetMonth check', targetMonth);
-			// registerMessage =
+
 			break;
 	}
 	// use reply API

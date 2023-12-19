@@ -61,7 +61,6 @@ function searchMemberMessage(message = []) {
 		`;
 		return result;
 	}, '  ');
-	console.log('result message:::拼湊完的字串', defaultMessage);
 	return defaultMessage;
 }
 
