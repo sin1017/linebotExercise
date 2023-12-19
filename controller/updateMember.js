@@ -54,8 +54,9 @@ async function deleteMember(userinfo) {
 		const [result, filed] = await db.execute(selectDbId, [
 			userinfo.source.userId,
 		]);
-		const dbId = result[0];
-		if (dbId.status === 1) throw false;
+		const dbId = result.some((item) => item.status === 1);
+		console.log(dbId);
+		if (dbId) throw false;
 
 		const updateOrder = `UPDATE zeabur.user SET status = '1' WHERE (id = ?)`;
 
