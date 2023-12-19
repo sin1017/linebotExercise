@@ -28,7 +28,7 @@ async function addVacation(userId, date) {
 		await db.execute(addVacationOrder, [userId, date]);
 		return 0;
 	} catch (error) {
-		console.log('新增休假失敗');
+		console.log('新增休假失敗', error);
 		return 1;
 	}
 }

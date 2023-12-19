@@ -62,7 +62,6 @@ async function deleteMember(userinfo) {
 			dbId = item.id;
 			return false;
 		});
-		console.log('dbId some 結果', dbId);
 		if (dbStatusCheck) throw false;
 
 		const updateOrder = `UPDATE zeabur.user SET status = '1' WHERE (id = ?)`;
