@@ -8,8 +8,8 @@ const db = require('../database/database');
  */
 async function selectDb(searchTarget, searchValue, tableName = 'zeabur.user') {
 	const selectDbId = searchTarget
-		? `SELECT * FROM ? WHERE ${searchTarget}='${searchValue}'`
-		: `SELECT * FROM ${tableName}`;
+		? `SELECT * FROM ? WHERE ? = ?`
+		: `SELECT * FROM ?`;
 	const executeValue = searchTarget
 		? [tableName, searchTarget, searchValue]
 		: [tableName];
