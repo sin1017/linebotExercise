@@ -28,7 +28,16 @@ async function resetVacationStatus() {
 	currentTime.setMonth(currentDataMonth - 2);
 	const resetResultList = resetList.map((item) => {
 		const dataTime = new Date(item.date);
-
+		console.log(
+			'map 內部：：：',
+			item,
+			'map 內部dataTime::::',
+			dataTime,
+			'db data 轉換time ----',
+			dataTime.getTime(),
+		);
+		console.log('當前日期', currentTime, '轉換時間', currentTime.getTime());
+		console.log('比對日期 ', currentTime.getTime() >= dataTime.getTime());
 		return {
 			...item,
 			status: currentTime.getTime() >= dataTime.getTime() ? 1 : 0,
