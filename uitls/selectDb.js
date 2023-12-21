@@ -13,6 +13,7 @@ async function selectDb(searchTarget, searchValue, tableName = 'zeabur.user') {
 	console.log('selectDb order', selectDbId);
 	const executeValue = searchTarget ? [searchValue] : [];
 	const [result, filed] = await db.execute(selectDbId, executeValue);
+	console.log('selectDb result', result);
 	return result;
 }
 
