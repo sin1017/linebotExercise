@@ -61,11 +61,16 @@ async function handleEvent(event) {
 			break;
 
 		default:
+			const addOrder = event.message.text.includes('新增 ');
+			if (addOrder) {
+				console.log('新增指令');
+				const vacationDate = event.message.text.split('新增');
+				console.log('新增日期', vacationDate);
+				await addVacation(event.source.id, vacationDate);
+			}
 			// const searchMethPattern = /查詢(\d+)月/;
 			// const targetMonth = event.message.text.match(searchMethPattern);
-			console.log('1111111');
-			await addVacation();
-			console.log('222222');
+
 			break;
 	}
 	// use reply API
