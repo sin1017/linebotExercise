@@ -64,7 +64,7 @@ async function handleEvent(event) {
 			const addOrder = event.message.text.includes('新增 ');
 			if (addOrder) {
 				console.log('新增指令');
-				const vacationDate = event.message.text.split('新增');
+				const vacationDate = event.message.text.split('新增 ');
 				console.log('新增日期', vacationDate);
 				await addVacation(event.source.userId, vacationDate);
 			}
