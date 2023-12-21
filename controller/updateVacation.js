@@ -22,17 +22,15 @@ async function checkRegisterStatus(userId) {
 async function resetVacationStatus() {
 	console.log('reset function start');
 	const resetList = await selectDb('status', 0, 'zeabur.vacation_list');
-	const currentTime = new Date().getTime();
-
+	const currentTime = new Date();
+	const currentDataMonth = dataTime.getMonth();
+	currentTime.setMonth(currentDataMonth - 2);
 	const resetResultList = resetList.map((item) => {
 		const dataTime = new Date(item.date);
-		const dataMonth = dataTime.getMonth();
-		dataTime.setMonth(dataMonth - 2);
-		console.log('resetResult 陣列內部 ');
 
 		return {
 			...item,
-			status: currentTime > dataTime.getTime() ? 1 : 0,
+			status: currentTime.getTime() >= dataTime.getTime() ? 1 : 0,
 		};
 	});
 	console.log('reset function end');
@@ -51,15 +49,15 @@ async function addVacation(userId, date) {
 		console.log('新增Function 內部 開始');
 		await resetVacationStatus();
 		console.log('新增Function 內部 重置日期結束');
-		const checkSignUpStatus = await checkRegisterStatus(userId);
-		if (checkSignUpStatus.length === 0) {
-			return 2;
-		}
-		const addVacationOrder = `INSERT INTO zeabur.vacation_list (uid, date) VALUES (? ,?)`;
-		await db.execute(addVacationOrder, [userId, date]);
-		return 0;
+		// const checkSignUpStatus = await checkRegisterStatus(userId);
+		// if (checkSignUpStatus.length === 0) {
+		// 	return 2;
+		// }
+		// const addVacationOrder = `INSERT INTO zeabur.vacation_list (uid, date) VALUES (? ,?)`;
+		// await db.execute(addVacationOrder, [userId, date]);
+		// return 0;
 	} catch (error) {
-		console.log('新增休假失敗', error);
+		// console.log('新增休假失敗', error);
 		return 1;
 	}
 }
