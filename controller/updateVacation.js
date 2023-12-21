@@ -22,31 +22,35 @@ async function checkRegisterStatus(userId) {
  */
 async function resetVacationStatus() {
 	console.log('reset function start');
-	const resetList = await selectDb('status', 0, 'zeabur.vacation_list');
+	try {
+		const resetList = await selectDb('status', 0, 'zeabur.vacation_list');
 
-	const currentTime = new Date();
-	const currentDataMonth = currentTime.getMonth();
-	currentTime.setMonth(currentDataMonth - 2);
-	const resetResultList = resetList
-		.map((item) => {
-			const dataTime = new Date(item?.date);
+		const currentTime = new Date();
+		const currentDataMonth = currentTime.getMonth();
+		currentTime.setMonth(currentDataMonth - 2);
+		const resetResultList = resetList
+			.map((item) => {
+				const dataTime = new Date(item?.date);
 
-			return {
-				...item,
-				status: currentTime?.getTime() >= dataTime.getTime() ? 1 : 0,
-			};
-		})
-		.filter((item) => item.status);
+				return {
+					...item,
+					status: currentTime?.getTime() >= dataTime.getTime() ? 1 : 0,
+				};
+			})
+			.filter((item) => item.status);
 
-	const upDateOrder = `UPDATE zeabur.vacation_list SET status = CASE ${resetResultList
-		.map((item) => `WHEN id = ? THEN ?`)
-		.join(', ')} END WHERE id IN (${resetResultList
-		.map(() => '?')
-		.join(', ')})`;
-	const upDateValue = upDateOrder.flatMap((data) => [data.status, data.id]);
-	db.execute(upDateOrder, upDateValue);
+		const upDateOrder = `UPDATE zeabur.vacation_list SET status = CASE ${resetResultList
+			.map((item) => `WHEN id = ? THEN ?`)
+			.join(', ')} END WHERE id IN (${resetResultList
+			.map(() => '?')
+			.join(', ')})`;
+		const upDateValue = upDateOrder.flatMap((data) => [data.status, data.id]);
+		db.execute(upDateOrder, upDateValue);
 
-	return resetResultList;
+		return resetResultList;
+	} catch (error) {
+		return [];
+	}
 }
 
 /**
