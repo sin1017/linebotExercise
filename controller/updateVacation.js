@@ -22,6 +22,7 @@ async function checkRegisterStatus(userId) {
 async function resetVacationStatus() {
 	console.log('reset function start');
 	const resetList = await selectDb('status', 0, 'zeabur.vacation_list');
+	console.log('取得db 日期回傳');
 	const currentTime = new Date();
 	const currentDataMonth = dataTime.getMonth();
 	currentTime.setMonth(currentDataMonth - 2);
