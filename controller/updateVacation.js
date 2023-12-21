@@ -64,4 +64,4 @@ async function addVacation(userId, date) {
 	}
 }
 
-module.exports = [checkRegisterStatus, addVacation];
+module.exports = { addVacation, checkRegisterStatus };

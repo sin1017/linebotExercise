@@ -3,7 +3,7 @@ const line = require('@line/bot-sdk');
 const express = require('express');
 const [addMember, deleteMember] = require('./controller/updateMember');
 const [searchMember] = require('./controller/search');
-const [addVacation] = require('./controller/updateVacation');
+const { addVacation } = require('./controller/updateVacation');
 // create LINE SDK config from env variables
 const config = {
 	channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN,
