@@ -48,7 +48,9 @@ async function resetVacationStatus() {
  */
 async function addVacation(userId, date) {
 	try {
+		console.log('新增Function 內部 開始');
 		await resetVacationStatus();
+		console.log('新增Function 內部 重置日期結束');
 		const checkSignUpStatus = await checkRegisterStatus(userId);
 		if (checkSignUpStatus.length === 0) {
 			return 2;
