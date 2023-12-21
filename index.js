@@ -3,6 +3,7 @@ const line = require('@line/bot-sdk');
 const express = require('express');
 const [addMember, deleteMember] = require('./controller/updateMember');
 const [searchMember] = require('./controller/search');
+const [addVacation] = require('./controller/updateVacation');
 // create LINE SDK config from env variables
 const config = {
 	channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN,
@@ -60,9 +61,9 @@ async function handleEvent(event) {
 			break;
 
 		default:
-			const searchMethPattern = /查詢(\d+)月/;
-			const targetMonth = event.message.text.match(searchMethPattern);
-
+			// const searchMethPattern = /查詢(\d+)月/;
+			// const targetMonth = event.message.text.match(searchMethPattern);
+			await addVacation();
 			break;
 	}
 	// use reply API
