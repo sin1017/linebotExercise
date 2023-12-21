@@ -10,10 +10,10 @@ async function selectDb(searchTarget, searchValue, tableName = 'zeabur.user') {
 	const selectDbId = searchTarget
 		? `SELECT * FROM ${tableName} WHERE ${searchTarget} = ?`
 		: `SELECT * FROM ${tableName}`;
-	console.log('selectDb order', selectDbId);
+
 	const executeValue = searchTarget ? [searchValue] : [];
 	const [result, filed] = await db.execute(selectDbId, executeValue);
-	console.log('selectDb result', result);
+
 	return result;
 }
 

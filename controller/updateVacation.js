@@ -22,28 +22,18 @@ async function checkRegisterStatus(userId) {
 async function resetVacationStatus() {
 	console.log('reset function start');
 	const resetList = await selectDb('status', 0, 'zeabur.vacation_list');
-	console.log('取得db 日期回傳', resetList);
-	const currentTime = new Date();
+
+	const currentTime = new Date('2024/2/2');
 	const currentDataMonth = currentTime.getMonth();
 	currentTime.setMonth(currentDataMonth - 2);
 	const resetResultList = resetList.map((item) => {
 		const dataTime = new Date(item.date);
-		console.log(
-			'map 內部：：：',
-			item,
-			'map 內部dataTime::::',
-			dataTime,
-			'db data 轉換time ----',
-			dataTime.getTime(),
-		);
-		console.log('當前日期', currentTime, '轉換時間', currentTime.getTime());
-		console.log('比對日期 ', currentTime.getTime() >= dataTime.getTime());
+
 		return {
 			...item,
 			status: currentTime.getTime() >= dataTime.getTime() ? 1 : 0,
 		};
 	});
-	console.log('reset function end');
 
 	console.log('reset 日期', resetResultList);
 }
@@ -56,9 +46,7 @@ async function resetVacationStatus() {
  */
 async function addVacation(userId, date) {
 	try {
-		console.log('新增Function 內部 開始');
 		await resetVacationStatus();
-		console.log('新增Function 內部 重置日期結束');
 		// const checkSignUpStatus = await checkRegisterStatus(userId);
 		// if (checkSignUpStatus.length === 0) {
 		// 	return 2;
