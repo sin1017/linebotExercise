@@ -20,6 +20,7 @@ async function checkRegisterStatus(userId) {
  * @description 重置資料庫，當前月份往前推一個月資料，關閉status，好讓新增日其實可寫入覆蓋
  */
 async function resetVacationStatus() {
+	console.log('reset function start');
 	const resetList = await selectDb('status', 0, 'zeabur.vacation_list');
 	const currentTime = new Date().getTime();
 
@@ -27,12 +28,15 @@ async function resetVacationStatus() {
 		const dataTime = new Date(item.date);
 		const dataMonth = dataTime.getMonth();
 		dataTime.setMonth(dataMonth - 2);
+		console.log('resetResult 陣列內部 ');
 
 		return {
 			...item,
 			status: currentTime > dataTime.getTime() ? 1 : 0,
 		};
 	});
+	console.log('reset function end');
+
 	console.log('reset 日期', resetResultList);
 }
 
