@@ -74,7 +74,6 @@ async function handleEvent(event) {
 		messages: [returnMessage],
 	});
 }
-addVacation();
 
 // listen on port
 const port = process.env.PORT || 3000;
