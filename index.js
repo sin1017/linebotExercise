@@ -61,11 +61,11 @@ async function handleEvent(event) {
 			break;
 
 		default:
-			const addOrder = event.message.text.includes('新增 ');
+			const addOrder = /新增(\d{4}\/\d{2}\/\d{2})/.test(event.message.text);
 			if (addOrder) {
 				console.log('新增指令');
-				const vacationDate = event.message.text.split('新增 ');
-				console.log('新增日期', vacationDate);
+				const vacationDate = event.message.text.split('新增');
+				console.log('新增日期', vacationDate[0]);
 				await addVacation(event.source.userId, vacationDate);
 			}
 			// const searchMethPattern = /查詢(\d+)月/;

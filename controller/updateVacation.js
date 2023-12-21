@@ -58,15 +58,20 @@ async function addVacation(userId, date) {
 	console.log('add 內部參數log', userId, date);
 	try {
 		const dataList = await resetVacationStatus();
+		console.log('resetVacationStatus');
 		const checkSignUpStatus = await checkRegisterStatus(userId);
+		console.log('checkRegisterStatus');
 		if (checkSignUpStatus.length === 0) {
+			console.log('111111');
 			return 2;
 		}
 		const addVacationOrder = `INSERT INTO zeabur.vacation_list (uid, date) VALUES (? ,?)`;
 		const upDateOrder = `UPDATE zeabur.vacation_list SET uid = ?, date = ?, status = '0' WHERE (id = ?)`;
+
 		dataList.length === 0
 			? await db.execute(addVacationOrder, [userId, date])
 			: await db.execute(upDateOrder, [userId, date, dataList[0].id]);
+		console.log('22222');
 		return 0;
 	} catch (error) {
 		// console.log('新增休假失敗', error);
