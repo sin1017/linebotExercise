@@ -27,9 +27,9 @@ async function addMember(userinfo) {
 		const selectResult = await selectDb();
 		const statusList = selectResult.find((item) => item.status === 1);
 
-		const addOrder = `INSERT INTO zeabur.user (uid, name) VALUES (?, ?)`;
+		const addOrder = `INSERT INTO user (uid, name) VALUES (?, ?)`;
 
-		const updateOrder = `UPDATE zeabur.user SET uid = ?, name = ?, status = '0' WHERE (id = ?)`;
+		const updateOrder = `UPDATE user SET uid = ?, name = ?, status = '0' WHERE (id = ?)`;
 
 		selectResult.length < 10
 			? await db.execute(addOrder, [userinfo.source.userId, userName])
@@ -49,7 +49,7 @@ async function addMember(userinfo) {
 async function deleteMember(userinfo) {
 	try {
 		// get db id
-		const selectDbId = `SELECT * FROM zeabur.user WHERE uid = ?`;
+		const selectDbId = `SELECT * FROM user WHERE uid = ?`;
 
 		const [result, filed] = await db.execute(selectDbId, [
 			userinfo.source.userId,
@@ -64,7 +64,7 @@ async function deleteMember(userinfo) {
 		});
 		if (dbStatusCheck) throw false;
 
-		const updateOrder = `UPDATE zeabur.user SET status = '1' WHERE (id = ?)`;
+		const updateOrder = `UPDATE user SET status = '1' WHERE (id = ?)`;
 
 		await db.execute(updateOrder, [dbId]);
 

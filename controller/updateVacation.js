@@ -22,7 +22,7 @@ async function checkRegisterStatus(userId) {
  */
 async function resetVacationStatus() {
 	try {
-		const resetList = await selectDb('status', 0, 'zeabur.vacation_list');
+		const resetList = await selectDb('status', 0, 'vacation_list');
 
 		const currentTime = new Date();
 		const currentDataMonth = currentTime.getMonth();
@@ -69,8 +69,8 @@ async function addVacation(userId, date) {
 		if (checkSignUpStatus.length === 0) {
 			return 2;
 		}
-		const addVacationOrder = `INSERT INTO zeabur.vacation_list (uid, date) VALUES (? ,?)`;
-		const upDateOrder = `UPDATE zeabur.vacation_list SET uid = ?, date = ?, status = '0' WHERE (id = ?)`;
+		const addVacationOrder = `INSERT INTO vacation_list (uid, date) VALUES (? ,?)`;
+		const upDateOrder = `UPDATE vacation_list SET uid = ?, date = ?, status = '0' WHERE (id = ?)`;
 
 		dataList.length === 0
 			? await db.execute(addVacationOrder, [userId, date])

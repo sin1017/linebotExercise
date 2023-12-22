@@ -3,10 +3,10 @@ const db = require('../database/database');
  *
  * @param searchTarget 搜尋欄位名稱
  * @param searchValue 搜尋值
- * @param tableName 表單名稱 預設為 zeabur.user
+ * @param tableName 表單名稱 預設為 user
  * @returns result[ {} ]
  */
-async function selectDb(searchTarget, searchValue, tableName = 'zeabur.user') {
+async function selectDb(searchTarget, searchValue, tableName = 'user') {
 	const selectDbId = searchTarget
 		? `SELECT * FROM ${tableName} WHERE ${searchTarget} = ?`
 		: `SELECT * FROM ${tableName}`;
