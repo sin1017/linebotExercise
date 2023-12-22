@@ -73,10 +73,10 @@ async function addVacation(userId, date) {
 		const addVacationOrder = `INSERT INTO zeabur.vacation_list (uid, date) VALUES (? ,?)`;
 		const upDateOrder = `UPDATE zeabur.vacation_list SET uid = ?, date = ?, status = '0' WHERE (id = ?)`;
 
-		dataList.length === 0
-			? await db.execute(addVacationOrder, [userId, date])
-			: await db.execute(upDateOrder, [userId, date, dataList[0].id]);
-		// await db.execute(addVacationOrder, [userId, date]);
+		// dataList.length === 0
+		// 	? await db.execute(addVacationOrder, [userId, date])
+		// 	: await db.execute(upDateOrder, [userId, date, dataList[0].id]);
+		await db.execute(addVacationOrder, [userId, date]);
 
 		return 0;
 	} catch (error) {
