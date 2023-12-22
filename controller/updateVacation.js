@@ -21,7 +21,6 @@ async function checkRegisterStatus(userId) {
  * @returns filter status === 1
  */
 async function resetVacationStatus() {
-	console.log('reset function start');
 	try {
 		const resetList = await selectDb('status', 0, 'zeabur.vacation_list');
 
@@ -40,15 +39,17 @@ async function resetVacationStatus() {
 			.filter((item) => item.status);
 
 		const upDateOrder = `UPDATE zeabur.vacation_list SET status = CASE ${resetResultList
-			.map((item) => `WHEN id = ? THEN ?`)
+			.map(() => `WHEN id = ? THEN ?`)
 			.join(', ')} END WHERE id IN (${resetResultList
 			.map(() => '?')
 			.join(', ')})`;
 		const upDateValue = upDateOrder.flatMap((data) => [data.status, data.id]);
+		console.log('upDateValue list ---- ', upDateOrder);
 		db.execute(upDateOrder, upDateValue);
 
 		return resetResultList;
 	} catch (error) {
+		console.log('error ::: 重置資料庫失敗', error);
 		return [];
 	}
 }
@@ -59,14 +60,17 @@ async function resetVacationStatus() {
  * @returns 0: 新增成功 1: 新增失敗 2: 查無會員帳號
  */
 async function addVacation(userId, date) {
-	console.log('add 內部參數log', userId, date);
+	const checkAddTime = new Date(date).getTime();
+	const nowTime = new Date().getTime();
+	if (nowTime > checkAddTime) {
+		return 1;
+	}
 	try {
 		const dataList = await resetVacationStatus();
-		console.log('resetVacationStatus');
+
 		const checkSignUpStatus = await checkRegisterStatus(userId);
-		console.log('checkRegisterStatus');
+
 		if (checkSignUpStatus.length === 0) {
-			console.log('111111');
 			return 2;
 		}
 		const addVacationOrder = `INSERT INTO zeabur.vacation_list (uid, date) VALUES (? ,?)`;
@@ -75,10 +79,10 @@ async function addVacation(userId, date) {
 		dataList.length === 0
 			? await db.execute(addVacationOrder, [userId, date])
 			: await db.execute(upDateOrder, [userId, date, dataList[0].id]);
-		console.log('22222');
+
 		return 0;
 	} catch (error) {
-		// console.log('新增休假失敗', error);
+		console.log('新增休假失敗', error);
 		return 1;
 	}
 }
