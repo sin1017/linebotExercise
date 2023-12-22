@@ -1,6 +1,6 @@
 const db = require('../database/database');
 const selectDb = require('../uitls/selectDb');
-// const dbQueryPromise = db.promisify(db.query).bind(db);
+
 /**
  * @description 檢查註冊狀態
  * @param userId line id
@@ -38,10 +38,10 @@ async function resetVacationStatus() {
 			})
 			.filter((item) => item.status);
 
-		const upDateOrder = `UPDATE vacation_list SET status = '1' WHERE (id = ?)`;
-		const upDateValue = resetResultList.map((data) => data.id);
+		const upDateOrder = `UPDATE vacation_list SET status = '1' WHERE id IN ?`;
+		const upDateValue = resetResultList.map((data) => [data.id]);
 
-		await db.query(upDateOrder, upDateValue);
+		await db.query(upDateOrder, [upDateValue]);
 
 		return resetResultList;
 	} catch (error) {
