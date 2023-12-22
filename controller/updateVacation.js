@@ -1,6 +1,6 @@
 const db = require('../database/database');
 const selectDb = require('../uitls/selectDb');
-const dbQueryPromise = db.promisify(db.query).bind(db);
+// const dbQueryPromise = db.promisify(db.query).bind(db);
 /**
  * @description 檢查註冊狀態
  * @param userId line id
