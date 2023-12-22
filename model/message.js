@@ -38,11 +38,15 @@ function deleteMemberMessage(condition) {
 	return defaultMessage;
 }
 function addVacationMessage(condition) {
-	if (!condition) {
-		defaultMessage.text = '新增失敗 😭😭😭';
-		return defaultMessage;
+	switch (condition) {
+		case 1:
+			defaultMessage.text = '刪除失敗 😭😭😭';
+		case 2:
+			defaultMessage.text = '查無會員帳號 🤨🤨🤨';
+		default:
+			defaultMessage.text = '新增成功 🎉🎉🎉';
+			break;
 	}
-	defaultMessage.text = '新增成功 🎉🎉🎉';
 	return defaultMessage;
 }
 
