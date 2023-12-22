@@ -59,7 +59,7 @@ async function resetVacationStatus() {
 async function addVacation(userId, date) {
 	const checkAddTime = new Date(date).getTime();
 	const nowTime = new Date().getTime();
-	if (nowTime > checkAddTime) {
+	if (nowTime < checkAddTime) {
 		return 1;
 	}
 	try {
