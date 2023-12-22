@@ -38,7 +38,7 @@ async function resetVacationStatus() {
 			})
 			.filter((item) => item.status);
 
-		const upDateOrder = `UPDATE vacation_list SET status = '1' WHERE id IN ?`;
+		const upDateOrder = `UPDATE vacation_list SET status = '1' WHERE id IN (?)`;
 		const upDateValue = resetResultList.map((data) => [data.id]);
 
 		await db.query(upDateOrder, [upDateValue]);
