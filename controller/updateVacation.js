@@ -38,17 +38,12 @@ async function resetVacationStatus() {
 			})
 			.filter((item) => item.status);
 
-		const upDateOrder = `UPDATE zeabur.vacation_list SET status = CASE ${resetResultList
-			.map(() => `WHEN id = ? THEN ?`)
-			.join(', ')} END WHERE id IN (${resetResultList
-			.map(() => '?')
-			.join(', ')})`;
+		const upDateOrder = `UPDATE vacation_list SET status = '1' WHERE (id = ?)`;
 		const upDateValue = resetResultList.flatMap((data) => [
-			data.status,
-			data.id,
+			[data.status, data.id],
 		]);
 		console.log('upDateValue list ---- ', upDateValue);
-		db.execute(upDateOrder, upDateValue);
+		db.query(upDateOrder, upDateValue);
 
 		return resetResultList;
 	} catch (error) {
