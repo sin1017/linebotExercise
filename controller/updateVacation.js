@@ -21,6 +21,7 @@ async function checkRegisterStatus(userId) {
  * @returns filter status === 1
  */
 async function resetVacationStatus() {
+	console.log('resetVacationStatus----start 重置開始');
 	try {
 		const resetList = await selectDb('status', 0, 'zeabur.vacation_list');
 
