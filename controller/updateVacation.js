@@ -43,9 +43,9 @@ async function resetVacationStatus() {
 			.join(', ')} END WHERE id IN (${resetResultList
 			.map(() => '?')
 			.join(', ')})`;
-		const upDateValue = upDateOrder.flatMap((data) => [data.status, data.id]);
 		console.log('upDateValue list ---- ', upDateOrder);
-		db.execute(upDateOrder, upDateValue);
+		// const upDateValue = upDateOrder.flatMap((data) => [data.status, data.id]);
+		// db.execute(upDateOrder, upDateValue);
 
 		return resetResultList;
 	} catch (error) {
