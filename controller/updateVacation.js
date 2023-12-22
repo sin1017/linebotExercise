@@ -1,6 +1,6 @@
 const db = require('../database/database');
 const selectDb = require('../uitls/selectDb');
-
+const dbQueryPromise = db.promisify(db.query).bind(db);
 /**
  * @description 檢查註冊狀態
  * @param userId line id
@@ -21,7 +21,6 @@ async function checkRegisterStatus(userId) {
  * @returns filter status === 1
  */
 async function resetVacationStatus() {
-	console.log('resetVacationStatus----start 重置開始');
 	try {
 		const resetList = await selectDb('status', 0, 'zeabur.vacation_list');
 
@@ -41,8 +40,8 @@ async function resetVacationStatus() {
 
 		const upDateOrder = `UPDATE vacation_list SET status = '1' WHERE (id = ?)`;
 		const upDateValue = resetResultList.map((data) => data.id);
-		console.log('upDateValue list ---- ', upDateValue);
-		db.query(upDateOrder, upDateValue);
+
+		await db.query(upDateOrder, upDateValue);
 
 		return resetResultList;
 	} catch (error) {
