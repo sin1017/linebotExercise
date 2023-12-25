@@ -2,7 +2,11 @@ require('dotenv').config();
 const line = require('@line/bot-sdk');
 const express = require('express');
 const [addMember, deleteMember] = require('./controller/updateMember');
-const { searchMember, searchMonth } = require('./controller/search');
+const {
+	searchMember,
+	searchMonth,
+	searchAllVacationList,
+} = require('./controller/search');
 const {
 	addVacation,
 	updateVacationStatus,
@@ -34,7 +38,7 @@ app.post('/callback', line.middleware(config), (req, res) => {
 });
 
 // event handler
-const [
+const {
 	returnMessageHandle,
 	registerMemberMessage,
 	deleteMemberMessage,
@@ -42,7 +46,8 @@ const [
 	deleteVacationMessage,
 	searchMemberMessage,
 	searchMonthMessage,
-] = require('./model/message');
+	searchAllVacationListMessage,
+} = require('./model/message');
 async function handleEvent(event) {
 	let returnMessage = '';
 	if (event.type !== 'message' || event.message.type !== 'text') {
@@ -61,7 +66,11 @@ async function handleEvent(event) {
 			break;
 		case '查詢名單':
 			returnMessage = searchMemberMessage(await searchMember());
-
+			break;
+		case '查詢休假表':
+			returnMessage = searchAllVacationListMessage(
+				await searchAllVacationList(),
+			);
 			break;
 
 		default:

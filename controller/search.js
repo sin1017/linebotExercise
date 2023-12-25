@@ -100,4 +100,27 @@ async function searchMonth(month) {
 	}
 }
 
-module.exports = { searchMember, searchMonth };
+async function searchAllVacationList() {
+	const memberList = await searchMember();
+	const vacationList = await searchVacationList();
+	const sortVacationList = vacationList
+		.map((item) => {
+			const userName = memberList.find((value) => value.uid === item.uid);
+			return {
+				...item,
+				name: userName.name,
+			};
+		})
+		.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+	const allVacationListText = sortVacationList.reduce((result, item, index) => {
+		result += `${index + 1}. ${item.name} ${new Date(
+			item.date,
+		).toLocaleDateString()}
+		`;
+		return result;
+	}, '  ');
+	return allVacationListText;
+}
+
+module.exports = { searchMember, searchMonth, searchAllVacationList };

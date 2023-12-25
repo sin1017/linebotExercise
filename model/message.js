@@ -87,7 +87,14 @@ function searchMonthMessage(message) {
 	return defaultMessage;
 }
 
-module.exports = [
+function searchAllVacationListMessage(message) {
+	message.length === 0
+		? (defaultMessage.text = '無人休假')
+		: (defaultMessage.text = message);
+	return defaultMessage;
+}
+
+module.exports = {
 	returnMessageHandle,
 	registerMemberMessage,
 	addVacationMessage,
@@ -95,4 +102,5 @@ module.exports = [
 	deleteVacationMessage,
 	searchMemberMessage,
 	searchMonthMessage,
-];
+	searchAllVacationListMessage,
+};
