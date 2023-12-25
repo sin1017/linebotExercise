@@ -39,7 +39,6 @@ function deleteMemberMessage(condition) {
 	return defaultMessage;
 }
 function addVacationMessage(condition) {
-	console.log('condition', condition);
 	switch (condition) {
 		case '1':
 			defaultMessage.text = '新增失敗 😭😭😭';

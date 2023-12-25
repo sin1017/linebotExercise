@@ -2,7 +2,7 @@ require('dotenv').config();
 const line = require('@line/bot-sdk');
 const express = require('express');
 const [addMember, deleteMember] = require('./controller/updateMember');
-const { searchMember } = require('./controller/search');
+const { searchMember, searchMonth } = require('./controller/search');
 const {
 	addVacation,
 	updateVacationStatus,
@@ -66,6 +66,7 @@ async function handleEvent(event) {
 		default:
 			const addOrder = /新增(\d{4}\/\d{2}\/\d{2})/.test(event.message.text);
 			const deleteOrder = /刪除(\d{4}\/\d{2}\/\d{2})/.test(event.message.text);
+			const searchMethOrder = /查詢(\d+)月/.test(event.message.text);
 			if (addOrder) {
 				const vacationDate = event.message.text.split('新增');
 				returnMessage = addVacationMessage(
@@ -78,8 +79,10 @@ async function handleEvent(event) {
 					await updateVacationStatus(event.source.userId, vacationDate[1]),
 				);
 			}
-			// const searchMethPattern = /查詢(\d+)月/;
-			// const targetMonth = event.message.text.match(searchMethPattern);
+			if (searchMethOrder) {
+				const vacationDate = event.message.text.split(/\D+/);
+				const resultList = await searchMonth(Number(vacationDate[1]));
+			}
 
 			break;
 	}

@@ -88,7 +88,7 @@ async function addVacation(userId, date) {
 		}
 		const dataList = await resetVacationStatus();
 		const checkSignUpStatus = await checkRegisterStatus(userId);
-		console.log('check status', checkSignUpStatus);
+
 		if (!checkSignUpStatus) {
 			return '2';
 		}
