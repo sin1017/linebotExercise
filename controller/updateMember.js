@@ -30,7 +30,7 @@ async function addMember(userinfo) {
 		const addOrder = `INSERT INTO user (uid, name) VALUES (?, ?)`;
 
 		const updateOrder = `UPDATE user SET uid = ?, name = ?, status = '0' WHERE (id = ?)`;
-
+		console.log('status', statusList);
 		selectResult.length < 10
 			? await db.execute(addOrder, [userinfo.source.userId, userName])
 			: await db.execute(updateOrder, [
