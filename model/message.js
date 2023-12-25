@@ -23,19 +23,11 @@ function returnMessageHandle() {
 	return order;
 }
 function registerMemberMessage(condition) {
-	if (!condition) {
-		defaultMessage.text = '註冊失敗 😭😭😭';
-		return defaultMessage;
-	}
-	defaultMessage.text = '註冊成功 🎉🎉🎉';
+	defaultMessage.text = !condition ? '註冊失敗 😭😭😭' : '註冊成功 🎉🎉🎉';
 	return defaultMessage;
 }
 function deleteMemberMessage(condition) {
-	if (!condition) {
-		defaultMessage.text = '刪除失敗 😭😭😭';
-		return defaultMessage;
-	}
-	defaultMessage.text = '刪除成功 🎉🎉🎉';
+	defaultMessage.text = !condition ? '刪除失敗 😭😭😭' : '刪除成功 🎉🎉🎉';
 	return defaultMessage;
 }
 function addVacationMessage(condition) {
@@ -81,16 +73,12 @@ function searchMemberMessage(message = []) {
 }
 
 function searchMonthMessage(message) {
-	message === '1'
-		? (defaultMessage.text = '查詢失敗')
-		: (defaultMessage.text = message);
+	defaultMessage.text = message === '1' ? '查詢失敗' : message;
 	return defaultMessage;
 }
 
 function searchAllVacationListMessage(message) {
-	message.length === 0
-		? (defaultMessage.text = '無人休假')
-		: (defaultMessage.text = message);
+	defaultMessage.text = message ? message : '無人休假';
 	return defaultMessage;
 }
 

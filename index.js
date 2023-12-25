@@ -71,6 +71,7 @@ async function handleEvent(event) {
 			returnMessage = searchAllVacationListMessage(
 				await searchAllVacationList(),
 			);
+			console.log(returnMessage);
 			break;
 
 		default:

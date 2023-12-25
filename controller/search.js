@@ -43,9 +43,10 @@ function filterAndSortVacationList(vacationList, memberList, month) {
 		})
 		.map((item) => {
 			const userName = memberList.find((value) => value.uid === item.uid);
+
 			return {
 				...item,
-				name: userName.name,
+				name: userName ? userName?.name : null,
 			};
 		});
 }
@@ -62,7 +63,7 @@ function generateResultText(searchMonthList, month) {
 	let indexNumber = 1;
 	const resultText = searchMonthList.reduce((result, item) => {
 		const name = item.name;
-		if (result.indexOf(name) === -1) {
+		if (result.indexOf(name) === -1 && name) {
 			const vacationNum = searchMonthList.filter(
 				(value) => item.name === value.name,
 			);
@@ -106,13 +107,17 @@ async function searchAllVacationList() {
 	const sortVacationList = vacationList
 		.map((item) => {
 			const userName = memberList.find((value) => value.uid === item.uid);
+
 			return {
 				...item,
-				name: userName.name,
+				name: userName ? userName.name : null,
 			};
 		})
-		.sort((a, b) => new Date(a.date) - new Date(b.date));
-
+		.sort((a, b) => new Date(a.date) - new Date(b.date))
+		.filter((value) => value.name);
+	if (sortVacationList.length === 0) {
+		return null;
+	}
 	const allVacationListText = sortVacationList.reduce((result, item, index) => {
 		result += `${index + 1}. ${item.name} ${new Date(
 			item.date,
@@ -120,6 +125,7 @@ async function searchAllVacationList() {
 		`;
 		return result;
 	}, '  ');
+
 	return allVacationListText;
 }
 
