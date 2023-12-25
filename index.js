@@ -41,6 +41,7 @@ const [
 	addVacationMessage,
 	deleteVacationMessage,
 	searchMemberMessage,
+	searchMonthMessage,
 ] = require('./model/message');
 async function handleEvent(event) {
 	let returnMessage = '';
@@ -81,7 +82,9 @@ async function handleEvent(event) {
 			}
 			if (searchMethOrder) {
 				const vacationDate = event.message.text.split(/\D+/);
-				const resultList = await searchMonth(Number(vacationDate[1]));
+				returnMessage = searchMonthMessage(
+					await searchMonth(Number(vacationDate[1])),
+				);
 			}
 
 			break;

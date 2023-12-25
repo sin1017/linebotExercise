@@ -80,11 +80,19 @@ function searchMemberMessage(message = []) {
 	return defaultMessage;
 }
 
+function searchMonthMessage(message) {
+	message === '1'
+		? (defaultMessage.text = '查詢失敗')
+		: (defaultMessage.text = message);
+	return defaultMessage;
+}
+
 module.exports = [
 	returnMessageHandle,
 	registerMemberMessage,
-	deleteMemberMessage,
 	addVacationMessage,
+	deleteMemberMessage,
 	deleteVacationMessage,
 	searchMemberMessage,
+	searchMonthMessage,
 ];

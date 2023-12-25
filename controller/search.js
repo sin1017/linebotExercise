@@ -42,7 +42,7 @@ function filterAndSortVacationList(vacationList, memberList, month) {
 				: a.uid.localeCompare(b.uid);
 		})
 		.map((item) => {
-			const userName = memberList.find((value) => value.uid === uid);
+			const userName = memberList.find((value) => value.uid === item.uid);
 			return {
 				...item,
 				name: userName.name,
@@ -66,8 +66,8 @@ function generateResultText(searchMonthList, month) {
 			const vacationNum = searchMonthList.filter(
 				(value) => item.name === value.name,
 			);
-			result += `${indexNumber}. ${name} 休 ${vacationNum.length} 天
-				`;
+			result += `
+			${indexNumber}. ${name} 休 ${vacationNum.length} 天`;
 			indexNumber++;
 		}
 		return result;
@@ -79,7 +79,7 @@ function generateResultText(searchMonthList, month) {
 /**
  * @description 查詢月份休假名單
  * @param  month 月份
- * @returns string
+ * @returns string 名單字串拼接, 1: 查詢失敗
  */
 async function searchMonth(month) {
 	try {
@@ -87,9 +87,13 @@ async function searchMonth(month) {
 		const vacationList = await searchVacationList();
 		//會員名單列表
 		const memberList = await searchMember();
-		const searchMonthList = filterAndSortVacationList(vacationList, month);
+		const searchMonthList = filterAndSortVacationList(
+			vacationList,
+			memberList,
+			month,
+		);
 
-		return generateResultText(searchMonthList, memberList, month);
+		return generateResultText(searchMonthList, month);
 	} catch (error) {
 		console.log('查詢休假月份失敗', error);
 		return '1';
