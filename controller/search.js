@@ -68,7 +68,7 @@ function generateResultText(searchMonthList, month) {
 				(value) => item.name === value.name,
 			);
 			result += `
-			${indexNumber}. ${name} 休 ${vacationNum.length} 天`;
+			${indexNumber}. ${name} ： 休 ${vacationNum.length} 天`;
 			indexNumber++;
 		}
 		return result;
@@ -119,7 +119,7 @@ async function searchAllVacationList() {
 		return null;
 	}
 	const allVacationListText = sortVacationList.reduce((result, item, index) => {
-		result += `${index + 1}. ${item.name} ${new Date(
+		result += `${index + 1}. ${item.name} - ${new Date(
 			item.date,
 		).toLocaleDateString()}
 		`;

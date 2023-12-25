@@ -55,10 +55,10 @@ async function handleEvent(event) {
 		return Promise.resolve(null);
 	}
 	switch (event.message.text) {
-		case '註冊會員':
+		case '註冊帳號':
 			returnMessage = registerMemberMessage(await addMember(event));
 			break;
-		case '停用會員':
+		case '停用帳號':
 			returnMessage = deleteMemberMessage(await deleteMember(event));
 			break;
 		case '查詢':
