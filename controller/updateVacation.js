@@ -62,7 +62,7 @@ async function checkAddVacation(date) {
 			'vacation_list',
 		);
 		if (checkAddVacationStatus.length !== 0) {
-			return true;
+			return checkAddVacationStatus.some((item) => item.status === 1);
 		}
 		return false;
 	} catch (error) {
