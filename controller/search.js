@@ -67,8 +67,7 @@ function generateResultText(searchMonthList, month) {
 			const vacationNum = searchMonthList.filter(
 				(value) => item.name === value.name,
 			);
-			result += `
-			${indexNumber}. ${name} ： 休 ${vacationNum.length} 天`;
+			result += `${indexNumber}. ${name} ： 休 ${vacationNum.length} 天`;
 			indexNumber++;
 		}
 		return result;
