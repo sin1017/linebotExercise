@@ -61,21 +61,17 @@ function generateResultText(searchMonthList, month) {
 		return '該月份無人休假';
 	}
 	let indexNumber = 1;
-	const resultText = searchMonthList.reduce(
-		(result, item) => {
-			const name = item.name;
-			if (result.indexOf(name) === -1 && name) {
-				const vacationNum = searchMonthList.filter(
-					(value) => item.name === value.name,
-				);
-				result += `${indexNumber}. ${name} ： 休 ${vacationNum.length} 天                   	`;
-				indexNumber++;
-			}
-			return result;
-		},
-		`${month}月：
-	`,
-	);
+	const resultText = searchMonthList.reduce((result, item) => {
+		const name = item.name;
+		if (result.indexOf(name) === -1 && name) {
+			const vacationNum = searchMonthList.filter(
+				(value) => item.name === value.name,
+			);
+			result += `${indexNumber}. ${name} ： 休 ${vacationNum.length} 天	\n`;
+			indexNumber++;
+		}
+		return result;
+	}, `${month}月：\n`);
 
 	return resultText;
 }
@@ -123,9 +119,7 @@ async function searchAllVacationList() {
 	}
 	const allVacationListText = sortVacationList.reduce((result, item, index) => {
 		const date = new Date(item.date);
-		result += `${index + 1}. ${
-			item.name
-		} - ${date.toLocaleDateString()}                   `;
+		result += `${index + 1}. ${item.name} - ${date.toLocaleDateString()}\n`;
 		return result;
 	}, '');
 
