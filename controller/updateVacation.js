@@ -82,7 +82,15 @@ async function addVacation(userId, date) {
 		return '1';
 	}
 	try {
-		const checkVacationRepeat = await checkAddVacation(date);
+		const addDate = new Date(date);
+		const addMonth =
+			addDate.getMonth() + 1 < 10
+				? `0${addDate.getMonth() + 1}`
+				: addDate.getMonth() + 1;
+		const addDay =
+			addDate.getDay() < 10 ? `0${addDate.getDay()}` : addDate.getDay();
+		const fllDate = `${addDate.getFullYear()}/${addMonth}/${addDay}`;
+		const checkVacationRepeat = await checkAddVacation(fllDate);
 		if (checkVacationRepeat) {
 			return '3';
 		}
