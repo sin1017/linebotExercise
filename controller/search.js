@@ -119,7 +119,9 @@ async function searchAllVacationList() {
 	}
 	const allVacationListText = sortVacationList.reduce((result, item, index) => {
 		const date = new Date(item.date);
-		result += `${index + 1}. ${item.name} - ${date.toLocaleDateString()}\n`;
+		result += `${index + 1}. ${item.name} - ${date.getFullYear()}/${
+			date.getMonth() + 1
+		}/${date.getDay}\n`;
 		return result;
 	}, '');
 
