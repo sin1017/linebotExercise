@@ -74,8 +74,10 @@ async function handleEvent(event) {
 			break;
 
 		default:
-			const addOrder = /新增(\d{4}\/\d{2}\/\d{2})/.test(event.message.text);
-			const deleteOrder = /刪除(\d{4}\/\d{2}\/\d{2})/.test(event.message.text);
+			const addOrder = /新增(\d{4}\/\d{1,2}\/\d{1,2})/.test(event.message.text);
+			const deleteOrder = /刪除(\d{4}\/\d{1,2}\/\d{1,2})/.test(
+				event.message.text,
+			);
 			const searchMethOrder = /查詢(\d+)月/.test(event.message.text);
 			if (addOrder) {
 				const vacationDate = event.message.text.split('新增');

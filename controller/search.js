@@ -16,6 +16,7 @@ async function searchMember() {
 async function searchVacationList() {
 	try {
 		const vacationList = await searchDb('status', 0, 'vacation_list');
+
 		return vacationList;
 	} catch (error) {
 		return [];
@@ -117,14 +118,15 @@ async function searchAllVacationList() {
 	if (sortVacationList.length === 0) {
 		return null;
 	}
+	console.log('sortVacationList', sortVacationList);
 	const allVacationListText = sortVacationList.reduce((result, item, index) => {
 		const date = new Date(item.date);
 		result += `${index + 1}. ${item.name} - ${date.getFullYear()}/${
 			date.getMonth() + 1
-		}/${date.getDay()}\n`;
+		}/${date.getDate()}\n`;
 		return result;
 	}, '');
-
+	console.log('allVacationListText', allVacationListText);
 	return allVacationListText;
 }
 
