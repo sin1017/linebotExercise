@@ -1,3 +1,13 @@
-# linebotExercise
+# Vacation Line bot Exercise
 
 員工請假管理 line bot  製作練習
+
+## 主要功能
+1. 註冊會員
+2. 停用會員
+3. 新增休假
+4. 刪除休假
+5. 查詢已註冊會員名單
+6. 查詢單月休假名單＋天數
+7. 查詢所有休假列表
+
