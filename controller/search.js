@@ -121,7 +121,7 @@ async function searchAllVacationList() {
 		const date = new Date(item.date);
 		result += `${index + 1}. ${item.name} - ${date.getFullYear()}/${
 			date.getMonth() + 1
-		}/${date.getDay}\n`;
+		}/${date.getDay()}\n`;
 		return result;
 	}, '');
 
