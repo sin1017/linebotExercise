@@ -80,10 +80,10 @@ async function handleEvent(event) {
 			case '查詢名單':
 				returnMessage = searchMemberMessage(await searchMember());
 				break;
-			case '查詢休假':
+			case '查詢月份':
 				returnMessage = searchVacationList()
 				break;
-			case '查詢全部':
+			case '查詢休假':
 				returnMessage = searchAllVacationListMessage(
 					await searchAllVacationList(),
 				);

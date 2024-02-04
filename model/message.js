@@ -167,7 +167,7 @@ function searchVacationList() {
 			type: 'bubble',
 			body: {
 				type: 'box',
-				layout: 'vertical',
+				layout: 'horizontal',
 				contents: [
 					{
 						type: 'box',
@@ -177,129 +177,107 @@ function searchVacationList() {
 								type: 'button',
 								action: {
 									type: 'message',
-									label: '查詢全部',
-									text: "查詢全部"
+									label: '1月',
+									text: "查詢1月"
 								},
-								style: "secondary"
+							},
+							{
+								type: 'button',
+								action: {
+									type: 'message',
+									label: '2月',
+									text: "查詢2月"
+								},
+							},
+							{
+								type: 'button',
+								action: {
+									type: 'message',
+									label: '3月',
+									text: "查詢3月"
+								},
+							},
+							{
+								type: 'button',
+								action: {
+									type: 'message',
+									label: '4月',
+									text: "查詢4月"
+								},
+							},
+							{
+								type: 'button',
+								action: {
+									type: 'message',
+									label: '5月',
+									text: "查詢5月"
+								},
+							},
+							{
+								type: 'button',
+								action: {
+									type: 'message',
+									label: '6月',
+									text: "查詢6月"
+								},
 							},
 						]
 					},
 					{
 						type: 'box',
-						layout: 'horizontal',
+						layout: 'vertical',
 						contents: [
 							{
-								type: 'box',
-								layout: 'vertical',
-								contents: [
-									{
-										type: 'button',
-										action: {
-											type: 'message',
-											label: '1月',
-											text: "查詢1月"
-										},
-									},
-									{
-										type: 'button',
-										action: {
-											type: 'message',
-											label: '2月',
-											text: "查詢2月"
-										},
-									},
-									{
-										type: 'button',
-										action: {
-											type: 'message',
-											label: '3月',
-											text: "查詢3月"
-										},
-									},
-									{
-										type: 'button',
-										action: {
-											type: 'message',
-											label: '4月',
-											text: "查詢4月"
-										},
-									},
-									{
-										type: 'button',
-										action: {
-											type: 'message',
-											label: '5月',
-											text: "查詢5月"
-										},
-									},
-									{
-										type: 'button',
-										action: {
-											type: 'message',
-											label: '6月',
-											text: "查詢6月"
-										},
-									},
-								]
+								type: 'button',
+								action: {
+									type: 'message',
+									label: '7月',
+									text: "查詢7月"
+								},
 							},
 							{
-								type: 'box',
-								layout: 'vertical',
-								contents: [
-									{
-										type: 'button',
-										action: {
-											type: 'message',
-											label: '7月',
-											text: "查詢7月"
-										},
-									},
-									{
-										type: 'button',
-										action: {
-											type: 'message',
-											label: '8月',
-											text: "查詢8月"
-										},
-									},
-									{
-										type: 'button',
-										action: {
-											type: 'message',
-											label: '9月',
-											text: "查詢9月"
-										},
-									},
-									{
-										type: 'button',
-										action: {
-											type: 'message',
-											label: '10月',
-											text: "查詢10月"
-										},
-									},
-									{
-										type: 'button',
-										action: {
-											type: 'message',
-											label: '11月',
-											text: "查詢11月"
-										},
-									},
-									{
-										type: 'button',
-										action: {
-											type: 'message',
-											label: '12月',
-											text: "查詢12月"
-										},
-									},
-								]
-							}
+								type: 'button',
+								action: {
+									type: 'message',
+									label: '8月',
+									text: "查詢8月"
+								},
+							},
+							{
+								type: 'button',
+								action: {
+									type: 'message',
+									label: '9月',
+									text: "查詢9月"
+								},
+							},
+							{
+								type: 'button',
+								action: {
+									type: 'message',
+									label: '10月',
+									text: "查詢10月"
+								},
+							},
+							{
+								type: 'button',
+								action: {
+									type: 'message',
+									label: '11月',
+									text: "查詢11月"
+								},
+							},
+							{
+								type: 'button',
+								action: {
+									type: 'message',
+									label: '12月',
+									text: "查詢12月"
+								},
+							},
 						]
-					},
-
-				],
+					}
+				]
 			},
 		},
 	};
