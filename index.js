@@ -77,9 +77,6 @@ async function handleEvent(event) {
 			case '停用帳號':
 				returnMessage = deleteMemberMessage(await deleteMember(event));
 				break;
-			case '查詢':
-				returnMessage = returnMessageHandle();
-				break;
 			case '查詢名單':
 				returnMessage = searchMemberMessage(await searchMember());
 				break;
@@ -111,12 +108,14 @@ async function handleEvent(event) {
 					returnMessage = deleteVacationMessage(
 						await updateVacationStatus(event.source.userId, vacationDate[1]),
 					);
-				}
-				if (searchMethOrder) {
+				} else if (searchMethOrder) {
 					const vacationDate = event.message.text.split(/\D+/);
 					returnMessage = searchMonthMessage(
 						await searchMonth(Number(vacationDate[1])),
 					);
+				} else {
+
+					returnMessage = returnMessageHandle();
 				}
 
 				break;
