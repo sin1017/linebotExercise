@@ -33,6 +33,7 @@ app.post('/callback', line.middleware(config), (req, res) => {
 	Promise.all(req.body.events.map(handleEvent))
 		.then((result) => res.json(result))
 		.catch((err) => {
+			console.log('errrrrrr |||||||', err);
 			res.status(500).end();
 		});
 });
@@ -47,59 +48,79 @@ const {
 	searchMemberMessage,
 	searchMonthMessage,
 	searchAllVacationListMessage,
+	getGameList,
+	searchVacationList
 } = require('./model/message');
 async function handleEvent(event) {
-	console.log('event', event);
+	// console.log(event);
 	let returnMessage = '';
-	if (event.type !== 'message' || event.message.type !== 'text') {
-		// ignore non-text-message event
+	if (
+		event.type !== 'message' &&
+		event.type !== 'postback'
+	) {
 		return Promise.resolve(null);
 	}
-	switch (event.message.text) {
-		case '註冊帳號':
-			returnMessage = registerMemberMessage(await addMember(event));
-			break;
-		case '停用帳號':
-			returnMessage = deleteMemberMessage(await deleteMember(event));
-			break;
-		case '查詢':
-			returnMessage = returnMessageHandle();
-			break;
-		case '查詢名單':
-			returnMessage = searchMemberMessage(await searchMember());
-			break;
-		case '查詢休假表':
-			returnMessage = searchAllVacationListMessage(
-				await searchAllVacationList(),
-			);
-			break;
 
-		default:
-			const addOrder = /新增(\d{4}\/\d{1,2}\/\d{1,2})/.test(event.message.text);
-			const deleteOrder = /刪除(\d{4}\/\d{1,2}\/\d{1,2})/.test(
-				event.message.text,
+	if (event.postback) {
+		const addOrder = /新增休假/.test(event.postback.data);
+		if (addOrder) {
+			returnMessage = addVacationMessage(
+				await addVacation(event.source.userId, event.postback.params.date),
 			);
-			const searchMethOrder = /查詢(\d+)月/.test(event.message.text);
-			if (addOrder) {
-				const vacationDate = event.message.text.split('新增');
-				returnMessage = addVacationMessage(
-					await addVacation(event.source.userId, vacationDate[1]),
+		}
+	}
+	if (event.message) {
+		switch (event.message.text) {
+			case '註冊帳號':
+				returnMessage = registerMemberMessage(await addMember(event));
+				break;
+			case '停用帳號':
+				returnMessage = deleteMemberMessage(await deleteMember(event));
+				break;
+			case '查詢':
+				returnMessage = returnMessageHandle();
+				break;
+			case '查詢名單':
+				returnMessage = searchMemberMessage(await searchMember());
+				break;
+			case '查詢休假':
+				returnMessage = searchVacationList()
+				break;
+			case '查詢全部':
+				returnMessage = searchAllVacationListMessage(
+					await searchAllVacationList(),
 				);
-			}
-			if (deleteOrder) {
-				const vacationDate = event.message.text.split('刪除');
-				returnMessage = deleteVacationMessage(
-					await updateVacationStatus(event.source.userId, vacationDate[1]),
-				);
-			}
-			if (searchMethOrder) {
-				const vacationDate = event.message.text.split(/\D+/);
-				returnMessage = searchMonthMessage(
-					await searchMonth(Number(vacationDate[1])),
-				);
-			}
+				break;
+			case '刪除休假':
+				returnMessage = {
+					type: 'text',
+					text: '請輸入刪除年/月/日，例如：刪除2024/2/1',
+				};
+				break;
+			case '遊戲推薦':
+				returnMessage = getGameList()
+				break;
 
-			break;
+			default:
+				const deleteOrder = /刪除(\d{4}\/\d{1,2}\/\d{1,2})/.test(
+					event.message.text,
+				);
+				const searchMethOrder = /查詢(\d+)月/.test(event.message.text);
+				if (deleteOrder) {
+					const vacationDate = event.message.text.split('刪除');
+					returnMessage = deleteVacationMessage(
+						await updateVacationStatus(event.source.userId, vacationDate[1]),
+					);
+				}
+				if (searchMethOrder) {
+					const vacationDate = event.message.text.split(/\D+/);
+					returnMessage = searchMonthMessage(
+						await searchMonth(Number(vacationDate[1])),
+					);
+				}
+
+				break;
+		}
 	}
 	// use reply API
 	return client.replyMessage({
@@ -107,6 +128,8 @@ async function handleEvent(event) {
 		messages: [returnMessage],
 	});
 }
+
+app.use('/images', express.static('images'));
 
 // listen on port
 const port = process.env.PORT || 3000;
