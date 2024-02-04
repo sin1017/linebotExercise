@@ -49,6 +49,7 @@ const {
 	searchAllVacationListMessage,
 } = require('./model/message');
 async function handleEvent(event) {
+	console.log('event', event);
 	let returnMessage = '';
 	if (event.type !== 'message' || event.message.type !== 'text') {
 		// ignore non-text-message event
