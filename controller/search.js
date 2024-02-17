@@ -100,7 +100,10 @@ async function searchMonth(month) {
 		return '1';
 	}
 }
-
+/**
+ * @description 查詢所有人員及所有休假日期
+ * @returns string 名字＋日期字串拼接, 無休假紀錄則回傳null
+ */
 async function searchAllVacationList() {
 	const memberList = await searchMember();
 	const vacationList = await searchVacationList();
@@ -118,15 +121,14 @@ async function searchAllVacationList() {
 	if (sortVacationList.length === 0) {
 		return null;
 	}
-	console.log('sortVacationList', sortVacationList);
+
 	const allVacationListText = sortVacationList.reduce((result, item, index) => {
 		const date = new Date(item.date);
-		result += `${index + 1}. ${item.name} - ${date.getFullYear()}/${
-			date.getMonth() + 1
-		}/${date.getDate()}\n`;
+		result += `${index + 1}. ${item.name} - ${date.getFullYear()}/${date.getMonth() + 1
+			}/${date.getDate()}\n`;
 		return result;
 	}, '');
-	console.log('allVacationListText', allVacationListText);
+
 	return allVacationListText;
 }
 
